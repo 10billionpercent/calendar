@@ -153,18 +153,23 @@ Deployed on GitHub Pages:
 📸 Screenshots
 
 Desktop Layout
+
 <img width="1919" height="1018" alt="image" src="https://github.com/user-attachments/assets/94de2b14-5d26-45a1-97e1-e09afe5d1739" />
 
 Accent Color Picker
+
 <img width="1919" height="1024" alt="image" src="https://github.com/user-attachments/assets/5cfbcba4-e96e-457f-87fb-5be6c3889adb" />
 
 Per Date Note
+
 <img width="1919" height="1016" alt="image" src="https://github.com/user-attachments/assets/2f22747a-3ce2-4975-b6c8-abc6cba5c54e" />
 
 Global Note
+
 <img width="1919" height="1020" alt="image" src="https://github.com/user-attachments/assets/b0f5e643-b495-4048-9ea3-27c1c6d318b1" />
 
 Mobile Layout
+
 <img width="1351" height="993" alt="image" src="https://github.com/user-attachments/assets/6e83c438-5f4d-4cc2-be52-c2d7b69a75b3" />
 
 ---
