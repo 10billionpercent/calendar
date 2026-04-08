@@ -193,6 +193,13 @@ export function useCalendar() {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   }, []);
 
+  const jumpToDate = useCallback((month, year) => {
+  const newDate = new Date();
+  newDate.setFullYear(year);
+  newDate.setMonth(month);
+  setCurrentMonth(newDate);
+}, []);
+
   return {
     currentMonth,
     startDate,
@@ -219,5 +226,6 @@ export function useCalendar() {
     deleteDateNote,
     toggleTheme,
     setIsPostingNote,
+    jumpToDate,
   };
 }
