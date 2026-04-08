@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, X, Trash2 } from 'lucide-react';
-import { formatDateKey } from '../utils/dateUtils';
+import { Trash2, StickyNote, Plus, X, Clock } from 'lucide-react'; // Added Clock icon
+import { AnimatePresence, motion } from 'framer-motion';
 
 export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
   const [content, setContent] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [viewingNote, setViewingNote] = useState(null);
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -15,34 +16,29 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
 
   const handleSubmit = () => {
     if (content.trim()) {
-      onAdd(content);
+      onAdd(content.trim(), Date.now());
       setContent('');
       setIsFocused(false);
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      handleSubmit();
-    }
-    if (e.key === 'Escape') {
-      setIsFocused(false);
-      setContent('');
-    }
-  };
-
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toLocaleDateString('en-US', {
+  const formatTimestamp = (ts) => {
+    const d = new Date(ts);
+    const dateStr = d.toLocaleDateString('en-US', {
+      weekday: 'short',
       month: 'short',
-      day: 'numeric',
+      day: 'numeric'
+    });
+    const timeStr = d.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit'
     });
+    return { dateStr, timeStr };
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
+      {/* Input Area */}
       <div className="relative">
         <textarea
           ref={textareaRef}
@@ -50,74 +46,141 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
           onChange={(e) => setContent(e.target.value)}
           onFocus={() => setIsFocused(true)}
           onBlur={() => !content && setIsFocused(false)}
-          onKeyDown={handleKeyDown}
-          placeholder="Add a note... (Cmd+Enter to post)"
-          rows={3}
-          className="w-full p-3 rounded-lg resize-none text-sm transition-all duration-200"
+          placeholder="Add a global note..."
+          rows={isFocused ? 3 : 1}
+          className="w-full p-3 pr-12 rounded-xl resize-none text-sm transition-all duration-300"
           style={{
             backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
-            color: theme === 'dark' ? 'hsl(262, 10%, 95%)' : 'hsl(262, 15%, 15%)',
+            color: theme === 'dark' ? '#fff' : '#000',
             borderColor: isFocused ? accentColor : 'transparent',
             borderWidth: '2px',
-            outline: 'none'
+            outline: 'none',
+            minHeight: isFocused ? '100px' : '48px'
           }}
         />
-        
-        {isFocused && (
-          <div className="absolute bottom-3 right-3 flex items-center gap-2">
-            <button
-              onClick={() => { setIsFocused(false); setContent(''); }}
-              className="p-1.5 rounded hover:opacity-70 transition-opacity"
-              style={{ color: theme === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)' }}
-            >
-              <X className="w-4 h-4" />
-            </button>
-            <button
-              onClick={handleSubmit}
-              disabled={!content.trim()}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 disabled:opacity-50 hover:opacity-90 active:scale-95"
-              style={{ backgroundColor: accentColor, color: 'white' }}
-            >
-              <Send className="w-3.5 h-3.5" />
-              Post
-            </button>
-          </div>
-        )}
+        <button
+          onClick={handleSubmit}
+          className="absolute right-2 top-2 p-2 rounded-lg transition-all duration-300 active:scale-90"
+          style={{ 
+            backgroundColor: accentColor,
+            opacity: content.trim() ? 1 : 0,
+            pointerEvents: content.trim() ? 'auto' : 'none',
+            transform: content.trim() ? 'scale(1)' : 'scale(0.8)'
+          }}
+        >
+          <Plus className="w-5 h-5 text-black" />
+        </button>
       </div>
 
-      {notes.length > 0 && (
-        <div className="space-y-2 max-h-60 overflow-y-auto">
+      {/* Note Badges */}
+      <div className="flex flex-wrap gap-2">
+        <AnimatePresence>
           {notes.map((note) => (
-            <div
+            <motion.div
+              layout
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
               key={note.id}
-              className="p-3 rounded-lg group relative"
+            >
+              <button
+                onClick={() => setViewingNote(note)}
+                className="p-2 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
+                style={{ backgroundColor: `${accentColor}33` }}
+              >
+                <StickyNote className="w-5 h-5" style={{ color: accentColor }} />
+              </button>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {/* Note View Modal - Fixed Header to show Time */}
+      <AnimatePresence>
+        {viewingNote && (
+          <div 
+            className="absolute inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
+            onClick={() => setViewingNote(null)}
+          >
+            <div
+              className="w-full max-w-sm rounded-xl shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
               style={{
-                backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'
+                backgroundColor: theme === 'dark' ? 'hsl(262, 10%, 18%)' : 'white'
               }}
             >
-              <p 
-                className="text-sm whitespace-pre-wrap"
-                style={{ color: theme === 'dark' ? 'hsl(262, 10%, 95%)' : 'hsl(262, 15%, 15%)' }}
+              <div 
+                className="px-4 py-3 flex items-center justify-between border-b"
+                style={{ 
+                  borderColor: theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
+                }}
               >
-                {note.content}
-              </p>
-              <p 
-                className="text-xs mt-2 opacity-50"
-                style={{ color: theme === 'dark' ? 'hsl(262, 10%, 95%)' : 'hsl(262, 15%, 15%)' }}
-              >
-                {formatTimestamp(note.timestamp)}
-              </p>
-              <button
-                onClick={() => onDelete(note.id)}
-                className="absolute top-2 right-2 p-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110"
-                style={{ backgroundColor: 'rgba(244, 63, 94, 0.2)' }}
-              >
-                <Trash2 className="w-3.5 h-3.5" style={{ color: '#F43F5E' }} />
-              </button>
+                <div className="flex flex-col">
+                  <h3 className="font-medium" style={{ color: accentColor }}>
+                    {formatTimestamp(viewingNote.timestamp).dateStr}
+                    &nbsp; {formatTimestamp(viewingNote.timestamp).timeStr}
+                    </h3>
+                </div>
+                <button
+                  onClick={() => setViewingNote(null)}
+                  className="p-1 rounded hover:opacity-70 transition-opacity"
+                >
+                  <X className="w-5 h-5" style={{ color: theme === 'dark' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)' }} />
+                </button>
+              </div>
+              
+              <div className="p-4">
+                <div 
+                  className="w-full p-3 rounded-lg text-sm min-h-25 whitespace-pre-wrap"
+                  style={{
+                    backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
+                    color: theme === 'dark' ? 'hsl(262, 10%, 95%)' : 'hsl(262, 15%, 15%)',
+                    borderColor: accentColor,
+                    borderWidth: '2px'
+                  }}
+                >
+                  {viewingNote.content}
+                </div>
+                
+                <div className="flex justify-between items-center mt-3">
+                  <button
+                    onClick={() => {
+                      onDelete(viewingNote.id);
+                      setViewingNote(null);
+                    }}
+                    className="p-2 rounded-lg hover:bg-red-500/20 transition-colors group"
+                  >
+                    <Trash2 className="w-5 h-5 text-red-500/60 group-hover:text-red-500" />
+                  </button>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setViewingNote(null)}
+                      className="px-4 py-2 text-sm rounded-lg transition-all duration-150"
+                      style={{
+                        color: theme === 'dark' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)'
+                      }}
+                    >
+                      Close
+                    </button>
+                    <button
+                      onClick={() => setViewingNote(null)}
+                      className="px-4 py-2 text-sm rounded-lg font-medium transition-all duration-150 hover:opacity-90 active:scale-95"
+                      style={{ 
+                        backgroundColor: accentColor, 
+                        color: theme === 'dark' ? 'hsl(262, 15%, 15%)' : 'hsl(262, 10%, 95%)' 
+                      }}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

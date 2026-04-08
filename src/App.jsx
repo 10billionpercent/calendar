@@ -5,11 +5,12 @@ import { useCalendar } from "./hooks/useCalendar";
 import { generateTheme } from "./utils/colorUtils";
 import { formatDateKey } from "./utils/dateUtils";
 import { HeroImage } from "./components/HeroImage";
+import { CalendarHeader } from './components/CalendarHeader';
 import { CalendarGrid } from "./components/CalendarGrid";
 import { ColorPicker } from "./components/ColorPicker";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { NotesSection } from "./components/NotesSection";
-import { DateNoteEditor } from "./components/DateNoteEditor"; // Added this import
+import { DateNoteEditor } from "./components/DateNoteEditor"; 
 
 function App() {
   const {
@@ -72,7 +73,6 @@ function App() {
               : "0 20px 50px rgba(0,0,0,0.1)",
           }}
         >
-          {/* Left Side: Hero Image */}
           <div className="lg:w-2/5 border-r" style={{ borderColor }}>
             <HeroImage
               src={heroImage}
@@ -82,8 +82,28 @@ function App() {
             />
           </div>
 
-          {/* Right Side: Calendar & Notes (RELATIVE for Note Editor) */}
-          <div className="lg:w-3/5 flex flex-col relative"> 
+          <div className="lg:w-3/5 flex flex-col relative">
+          <div className="flex items-center justify-between px-6 py-4">
+    <CalendarHeader
+      currentMonth={currentMonth}
+      theme={theme}
+    /> 
+    
+    <div className="flex items-center gap-3">
+      <button
+        onClick={() => setShowColorPicker(!showColorPicker)}
+        className="p-2 rounded-lg transition-all hover:scale-105 active:scale-95"
+        style={{ backgroundColor: `${accentColor}33` }}
+      >
+        <Sparkles className="w-5 h-5" style={{ color: accentColor }} />
+      </button>
+      <ThemeToggle
+        theme={theme}
+        onToggle={toggleTheme}
+        accentColor={accentColor}
+      />
+    </div>
+  </div>
             <div className="flex-1">
               <CalendarGrid
                 currentMonth={currentMonth}
@@ -131,20 +151,6 @@ function App() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setShowColorPicker(!showColorPicker)}
-                    className="p-2 rounded-lg transition-all hover:scale-105 active:scale-95"
-                    style={{ backgroundColor: `${accentColor}33` }}
-                  >
-                    <Sparkles className="w-5 h-5" style={{ color: accentColor }} />
-                  </button>
-                  <ThemeToggle
-                    theme={theme}
-                    onToggle={toggleTheme}
-                    accentColor={accentColor}
-                  />
-                </div>
               </div>
             </div>
 

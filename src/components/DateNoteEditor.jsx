@@ -78,7 +78,7 @@ export function DateNoteEditor({
             value={content}
             onChange={(e) => setContent(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Add a note for this day..."
+            placeholder="Add a note for this day."
             rows={4}
             className="w-full p-3 rounded-lg resize-none text-sm"
             style={{
@@ -98,7 +98,7 @@ export function DateNoteEditor({
                 color: theme === 'dark' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)'
               }}
             >
-              Cancel
+              Close
             </button>
             <button
               onClick={() => onSave(content)}

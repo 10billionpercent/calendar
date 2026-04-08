@@ -1,4 +1,3 @@
-import { CalendarHeader } from './CalendarHeader';
 import { DateCell } from './DateCell';
 import { getMonthDays, formatDateKey } from '../utils/dateUtils';
 
@@ -24,10 +23,6 @@ export function CalendarGrid({
 
   return (
     <div className="flex flex-col">
-      <CalendarHeader
-        currentMonth={currentMonth}
-        theme={theme}
-      />
       
       <div className="p-4">
         <div className="grid grid-cols-7">
