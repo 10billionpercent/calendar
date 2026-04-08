@@ -165,8 +165,7 @@ Global Note
 <img width="1919" height="1020" alt="image" src="https://github.com/user-attachments/assets/b0f5e643-b495-4048-9ea3-27c1c6d318b1" />
 
 Mobile Layout
-
-
+<img width="1351" height="993" alt="image" src="https://github.com/user-attachments/assets/6e83c438-5f4d-4cc2-be52-c2d7b69a75b3" />
 
 ---
 
