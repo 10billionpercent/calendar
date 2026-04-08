@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { Upload } from "lucide-react";
+import defaultImage from "../assets/hange_excited.jpg";
 
-export function HeroImage({ src, onUpload, theme, accentColor }) {
+export function HeroImage({ src, onUpload, theme }) {
   const fileInputRef = useRef(null);
   const timerRef = useRef(null);
 
@@ -48,23 +48,11 @@ export function HeroImage({ src, onUpload, theme, accentColor }) {
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
     >
-      {src ? (
         <img
-          src={src}
+          src={src || defaultImage}
           alt="Calendar hero"
           className="w-full h-full object-cover min-h-[50dvh]"
         />
-      ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center p-8 transition-colors">
-          <Upload className="w-10 h-10 mb-2" style={{ color: accentColor }} />
-          <p className="text-sm font-medium text-center" style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
-            Double-click or Long-press to upload
-          </p>
-          <p className="text-xs mt-1 opacity-50 text-center" style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
-            PNG, JPG, GIF up to 5MB
-          </p>
-        </div>
-      )}
 
       <input
         ref={fileInputRef}
