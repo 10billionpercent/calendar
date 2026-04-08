@@ -27,7 +27,7 @@ export function HeroImage({ src, onUpload, theme, accentColor }) {
 
   return (
     <div
-      className="relative w-full h-48 md:h-full overflow-hidden cursor-pointer group rounded-xl"
+      className="relative w-full md:h-full overflow-hidden cursor-pointer group rounded-xl"
       style={!src ? bgStyle : undefined}
       onDoubleClick={handleDoubleClick}
     >
@@ -36,7 +36,7 @@ export function HeroImage({ src, onUpload, theme, accentColor }) {
           <img
             src={src}
             alt="Calendar hero"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover min-h-[50dvh]"
           />
         </>
       ) : (
