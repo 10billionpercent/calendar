@@ -47,10 +47,24 @@ function App() {
 
   const [showColorPicker, setShowColorPicker] = useState(false);
 
+  const dynamicGradient = `
+  radial-gradient(circle at 15% 15%, ${accentColor} 0%, transparent 45%), 
+  
+  radial-gradient(circle at 85% 15%, ${accentColor} 0%, transparent 45%),
+  
+  radial-gradient(circle at 50% 50%, ${accentColor} 0%, transparent 70%), 
+  
+  radial-gradient(circle at 85% 85%, ${accentColor} 0%, transparent 45%),
+  
+  radial-gradient(circle at 15% 85%, ${accentColor} 0%, transparent 45%),
+  
+  ${theme === 'dark' ? 'hsl(262, 20%, 2%)' : 'hsl(262, 20%, 98%)'}
+`;
+
   return (
   <div
     className="min-h-screen transition-colors duration-200 p-4 lg:p-12 flex items-center justify-center"
-    style={{ backgroundColor: bgColor }}
+    style={{ background: dynamicGradient, backdropFilter: 'saturate(200%) brightness(1.2)' }}
   >
     <div className="max-w-6xl w-full mx-auto">
       <div
