@@ -1,6 +1,5 @@
 import { GlobalNotes } from './GlobalNotes';
 import { DateNoteEditor } from './DateNoteEditor';
-import { formatDateKey } from '../utils/dateUtils';
 
 export function NotesSection({
   globalNotes,
@@ -45,7 +44,7 @@ export function NotesSection({
               {Object.entries(dateNotes).map(([dateKey, note]) => (
                 <div
                   key={dateKey}
-                  className="p-3 rounded-lg cursor-pointer group"
+                  className="p-3 cursor-pointer group"
                   style={{
                     backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)'
                   }}

@@ -27,7 +27,7 @@ export function HeroImage({ src, onUpload, theme, accentColor }) {
 
   return (
     <div
-      className="relative w-full md:h-full overflow-hidden cursor-pointer group rounded-xl"
+      className="relative w-full md:h-full overflow-hidden cursor-pointer group"
       style={!src ? bgStyle : undefined}
       onDoubleClick={handleDoubleClick}
     >

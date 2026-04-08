@@ -1,9 +1,12 @@
 import { Check } from 'lucide-react';
 import { PRESET_COLORS } from '../constants/colors';
 
-export function ColorPicker({ selected, onChange }) {
+export function ColorPicker({ selected, theme, onChange }) {
   return (
     <div className="space-y-3">
+      <h4         
+      style={{ color: theme === 'dark' ? 'hsl(262, 10%, 95%)' : 'hsl(262, 15%, 15%)' }}
+> Select an accent color </h4>
       <div className="grid grid-cols-8 gap-2">
         {PRESET_COLORS.map((color) => (
           <button
