@@ -59,16 +59,14 @@ function App() {
     ${theme === 'dark' ? 'hsl(262, 20%, 2%)' : 'hsl(262, 20%, 98%)'}
   `;
 
-  // 4. Handlers
   const handleDateDoubleClick = (date) => {
-    // Pass both key and object
     openDateNoteEditor(formatDateKey(date), date);
   };
 
   return (
     <div
       className="min-h-screen transition-colors duration-200 p-4 lg:p-12 flex items-center justify-center"
-      style={{ background: dynamicGradient, backdropFilter: 'saturate(200%) brightness(1.2)' }}
+      style={{ background: dynamicGradient, backdropFilter: 'saturate(200%) brightness(1.2)', transition: 'background 0.7s ease-in-out, background-color 0.7s ease-in-out' }}
     >
       <div className="max-w-6xl w-full mx-auto">
         <div
@@ -81,7 +79,6 @@ function App() {
               : "0 20px 50px rgba(0,0,0,0.1)",
           }}
         >
-          {/* Hero Section */}
           <div className="lg:w-2/5 border-r" style={{ borderColor }}>
             <HeroImage
               src={heroImage}
@@ -91,7 +88,6 @@ function App() {
             />
           </div>
 
-          {/* Calendar Section */}
           <div className="lg:w-3/5 flex flex-col relative">
             <div className="flex items-center justify-between px-6 py-4">
               <CalendarHeader currentMonth={currentMonth} theme={theme} /> 
@@ -184,7 +180,6 @@ function App() {
               />
             </div>
 
-            {/* Modals Layer */}
             <AnimatePresence>
               {activeNoteEditor && (
                 <DateNoteEditor
