@@ -50,7 +50,7 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
           rows={isFocused ? 3 : 1}
           className="w-full p-3 pr-12 rounded-xl resize-none text-sm transition-all duration-300"
           style={{
-            backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.1)',
+            backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
             color: theme === 'dark' ? '#fff' : '#000',
             borderColor: isFocused ? accentColor : 'transparent',
             borderWidth: '2px',
@@ -151,28 +151,6 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
                   >
                     <Trash2 className="w-5 h-5 text-red-500/60 group-hover:text-red-500" />
                   </button>
-
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setViewingNote(null)}
-                      className="px-4 py-2 text-sm rounded-lg transition-all duration-150"
-                      style={{
-                        color: theme === 'dark' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)'
-                      }}
-                    >
-                      Close
-                    </button>
-                    <button
-                      onClick={() => setViewingNote(null)}
-                      className="px-4 py-2 text-sm rounded-lg font-medium transition-all duration-150 hover:opacity-90 active:scale-95"
-                      style={{ 
-                        backgroundColor: accentColor, 
-                        color: theme === 'dark' ? 'hsl(262, 15%, 15%)' : 'hsl(262, 10%, 95%)' 
-                      }}
-                    >
-                      Save
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
