@@ -16,7 +16,11 @@ export function CalendarGrid({
 }) {
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
-  const days = getMonthDays(year, month);
+  const allDays = getMonthDays(year, month);
+
+  const displayDays = allDays[35] === null && allDays.length > 35 
+    ? allDays.slice(0, 35) 
+    : allDays;
 
   return (
     <div className="flex flex-col">
@@ -41,7 +45,7 @@ export function CalendarGrid({
         </div>
         
         <div className="grid grid-cols-7 gap-1">
-          {days.map((date, index) => (
+          {displayDays.map((date, index) => (
             <DateCell
               key={index}
               date={date}
