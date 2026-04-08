@@ -37,10 +37,6 @@ export function parseDateKey(dateKey) {
   return new Date(year, month - 1, day);
 }
 
-export function isToday(date) {
-  return isSameDay(date, new Date());
-}
-
 export function formatMonthYear(date) {
   return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }

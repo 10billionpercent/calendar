@@ -34,7 +34,7 @@ export function CalendarGrid({
           {DAY_LABELS.map((label, i) => (
             <div
               key={i}
-              className="w-full flex items-center justify-center text-xs font-medium"
+              className="w-full py-3 flex items-center justify-center text-xs font-medium"
               style={{ 
                 color: theme === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)'
               }}
@@ -44,7 +44,7 @@ export function CalendarGrid({
           ))}
         </div>
         
-        <div className="grid grid-cols-7 gap-x-0 gap-y-2"> 
+        <div className="grid grid-cols-7 gap-x-0"> 
           {displayDays.map((date, index) => (
             <DateCell
               key={index}

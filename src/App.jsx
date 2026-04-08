@@ -94,7 +94,6 @@ function App() {
                   className="flex items-center gap-2 text-sm font-medium"
                   style={{ color: textColor }}
                 >
-                  <Calendar className="w-4 h-4" style={{ color: accentColor }} />
                   {startDate ? (
                     <span>
                       {startDate.toLocaleDateString("en-US", {
@@ -105,7 +104,7 @@ function App() {
                         ` - ${endDate.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`}
                     </span>
                   ) : (
-                    <span className="opacity-60">Click to select range</span>
+                    <span className="opacity-80">Click to select range</span>
                   )}
                 </div>
 
