@@ -34,7 +34,7 @@ export function CalendarGrid({
           {DAY_LABELS.map((label, i) => (
             <div
               key={i}
-              className="w-full md:w-11 flex items-center justify-center text-xs font-medium"
+              className="w-full flex items-center justify-center text-xs font-medium"
               style={{ 
                 color: theme === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)'
               }}
