@@ -38,15 +38,15 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
 
   return (
     <div className="space-y-4">
-      {/* Input Area */}
       <div className="relative">
         <textarea
+          key={theme}
           ref={textareaRef}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           onFocus={() => setIsFocused(true)}
           onBlur={() => !content && setIsFocused(false)}
-          placeholder="Add a global note..."
+          placeholder="Add a global note."
           rows={isFocused ? 3 : 1}
           className="w-full p-3 pr-12 rounded-xl resize-none text-sm transition-all duration-300"
           style={{
@@ -72,7 +72,6 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
         </button>
       </div>
 
-      {/* Note Badges */}
       <div className="flex flex-wrap gap-2">
         <AnimatePresence>
           {notes.map((note) => (
@@ -95,7 +94,6 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
         </AnimatePresence>
       </div>
 
-      {/* Note View Modal - Fixed Header to show Time */}
       <AnimatePresence>
         {viewingNote && (
           <div 

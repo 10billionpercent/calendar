@@ -233,22 +233,22 @@ Quick Guide</h3>
         <ul className="space-y-4 text-sm" style={{ color: theme === 'dark' ? '#ccc' : '#666' }}>
           <li className="flex gap-3">
             <span className="font-bold" style={{ color: accentColor }}>•</span>
-            <p><span className="font-bold" style={{ color: accentColor }} >Click:</span> Select range start/end</p>
+            <p><span className="font-bold" style={{ color: accentColor }} >Click a date - </span> Select range start/end</p>
           </li>
           <li className="flex gap-3">
             <span className="font-bold" style={{ color: accentColor }}>•</span>
-            <p><span className="font-bold" style={{ color: accentColor }}>Double Click:</span> Add note to specific date</p>
+            <p><span className="font-bold" style={{ color: accentColor }}>Double Click (desktop) or Long Press (mobile) a date - </span> Add note to specific date</p>
           </li>
           <li className="flex gap-3">
             <span className="font-bold" style={{ color: accentColor }}>•</span>
-            <p><span className="font-bold" style={{ color: accentColor }}>Cmd + Enter:</span> Save note quickly</p>
+            <p><span className="font-bold" style={{ color: accentColor }}>Double Click (desktop) or Long Press (mobile) the image - </span> Upload a new hero image</p>
           </li>
         </ul>
 
         <button 
           onClick={() => setShowHelp(false)}
           className="w-full mt-6 py-2 rounded-xl font-bold transition-all active:scale-95"
-          style={{ backgroundColor: accentColor, color: theme === 'dark' ? '#000' : '#fff' }}
+          style={{ backgroundColor: accentColor, color: theme === 'dark' ? 'hsl(262, 15%, 15%)' : 'hsl(262, 10%, 95%)' }}
         >
           Got it!
         </button>
