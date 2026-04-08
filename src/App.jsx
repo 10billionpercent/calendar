@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Sparkles, Eraser } from "lucide-react";
+import { Sparkles, Eraser, HelpCircle, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCalendar } from "./hooks/useCalendar";
 import { generateTheme } from "./utils/colorUtils";
@@ -47,6 +47,7 @@ function App() {
   };
 
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   const dynamicGradient = `
   radial-gradient(circle at 15% 15%, ${accentColor} 0%, transparent 45%), 
@@ -90,6 +91,14 @@ function App() {
     /> 
     
     <div className="flex items-center gap-3">
+      <button
+    onClick={() => setShowHelp(!showHelp)}
+    className="p-2 rounded-lg transition-all hover:scale-105 active:scale-95"
+    style={{ backgroundColor: `${accentColor}33` }}
+    title="Help & Shortcuts"
+  >
+    <HelpCircle className="w-5 h-5" style={{ color: accentColor }} />
+  </button>
       <button
         onClick={() => setShowColorPicker(!showColorPicker)}
         className="p-2 rounded-lg transition-all hover:scale-105 active:scale-95"
@@ -196,6 +205,57 @@ function App() {
                 />
               )}
             </AnimatePresence>
+
+            <AnimatePresence>
+  {showHelp && (
+    <div 
+      className="absolute inset-0 z-100 flex items-center justify-center p-4 backdrop-blur-sm"
+      style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
+      onClick={() => setShowHelp(false)}
+    >
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-xs rounded-2xl p-6 shadow-2xl border"
+        style={{ 
+          backgroundColor: theme === 'dark' ? 'hsl(262, 10%, 18%)' : 'white',
+          borderColor: theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
+        }}
+      >
+        <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-medium" style={{ color: accentColor }}>
+Quick Guide</h3>
+          <button onClick={() => setShowHelp(false)}><X className="w-4 h-4" style={{ color: theme === 'dark' ? 'hsl(262, 10%, 95%)' : 'hsl(262, 15%, 15%)' }} /></button>
+        </div>
+        
+        <ul className="space-y-4 text-sm" style={{ color: theme === 'dark' ? '#ccc' : '#666' }}>
+          <li className="flex gap-3">
+            <span className="font-bold" style={{ color: accentColor }}>•</span>
+            <p><span className="font-bold" style={{ color: accentColor }} >Click:</span> Select range start/end</p>
+          </li>
+          <li className="flex gap-3">
+            <span className="font-bold" style={{ color: accentColor }}>•</span>
+            <p><span className="font-bold" style={{ color: accentColor }}>Double Click:</span> Add note to specific date</p>
+          </li>
+          <li className="flex gap-3">
+            <span className="font-bold" style={{ color: accentColor }}>•</span>
+            <p><span className="font-bold" style={{ color: accentColor }}>Cmd + Enter:</span> Save note quickly</p>
+          </li>
+        </ul>
+
+        <button 
+          onClick={() => setShowHelp(false)}
+          className="w-full mt-6 py-2 rounded-xl font-bold transition-all active:scale-95"
+          style={{ backgroundColor: accentColor, color: theme === 'dark' ? '#000' : '#fff' }}
+        >
+          Got it!
+        </button>
+      </motion.div>
+    </div>
+  )}
+</AnimatePresence>
           </div>
         </div>
       </div>
