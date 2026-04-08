@@ -44,9 +44,13 @@ export function DateCell({
 
   const getBorderRadius = () => {
     if (isStart && isEnd) return '8px';
+
+    if (isStart && !endDate) return '8px 0 0 8px'; 
+    
     if (isStart) return '8px 0 0 8px';
     if (isEnd) return '0 8px 8px 0';
     if (isInRange) return '0';
+    
     return '8px';
   };
 
@@ -64,7 +68,7 @@ export function DateCell({
 
   return (
     <button
-      onClick={() => handleClick}
+      onClick={handleClick}
       onDoubleClick={() => onDoubleClick(date)}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}

@@ -9,15 +9,20 @@ export function DateNoteEditor({
   accentColor,
   theme 
 }) {
+
   const [content, setContent] = useState(existingNote || '');
   const textareaRef = useRef(null);
 
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.focus();
-      textareaRef.current.select();
+      
+      const length = textareaRef.current.value.length;
+      textareaRef.current.setSelectionRange(length, length);
     }
   }, []);
+
+  if (!date) return null;
 
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') {
@@ -29,6 +34,7 @@ export function DateNoteEditor({
   };
 
   const formatDateDisplay = (date) => {
+    if (!date || !(date instanceof Date)) return "";
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
@@ -38,8 +44,8 @@ export function DateNoteEditor({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+      className="absolute inset-0 z-50 flex items-center justify-center p-4"
+      style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
       onClick={onCancel}
     >
       <div
@@ -97,7 +103,7 @@ export function DateNoteEditor({
             <button
               onClick={() => onSave(content)}
               className="px-4 py-2 text-sm rounded-lg font-medium transition-all duration-150 hover:opacity-90 active:scale-95"
-              style={{ backgroundColor: accentColor, color: 'white' }}
+              style={{ backgroundColor: accentColor, color: theme === 'dark' ? 'hsl(262, 15%, 15%)' : 'hsl(262, 10%, 95%)' }}
             >
               Save
             </button>
