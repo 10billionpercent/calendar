@@ -53,8 +53,8 @@ function App() {
       style={{ backgroundColor: bgColor }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="md:flex items-stretch">
-          <div className="md:w-2/5 flex-1 p-4 md:p-6 space-y-4">
+        <div className="lg:flex items-stretch">
+          <div className="lg:w-2/5 flex-1 p-4 lg:p-6 space-y-4">
             <HeroImage
               src={heroImage}
               onUpload={handleHeroUpload}
@@ -63,9 +63,9 @@ function App() {
             />
           </div>
 
-          <div className="md:w-3/5 flex flex-col">
+          <div className="lg:w-3/5 flex flex-col">
             <div className="flex-1 flex flex-col">
-              <div className="flex-1 p-4 md:p-6 space-y-4">
+              <div className="flex-1 p-4 lg:p-6 space-y-4">
                 <div
                   className="rounded-xl overflow-hidden shadow-lg"
                   style={{
