@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Calendar, Sparkles, Eraser } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCalendar } from "./hooks/useCalendar";
 import { generateTheme } from "./utils/colorUtils";
 import { formatDateKey } from "./utils/dateUtils";
@@ -45,7 +46,7 @@ function App() {
     openDateNoteEditor(formatDateKey(date));
   };
 
-  const [isColorModalOpen, setIsColorModalOpen] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
 
   return (
     <div
@@ -136,6 +137,7 @@ function App() {
 
                     <div className="flex items-center gap-4">
                        <button
+                       onClick={() => setShowColorPicker(!showColorPicker)}
       className="p-2 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
       style={{ 
         backgroundColor: `${accentColor}33`
@@ -154,30 +156,37 @@ function App() {
                   </div>
                 </div>
 
-                <div
-                  className="rounded-xl p-4 shadow-lg"
-                  style={{
-                    backgroundColor:
-                      theme === "dark" ? "hsl(262, 10%, 16%)" : "white",
-                    boxShadow:
-                      theme === "dark"
-                        ? "0 4px 20px rgba(0,0,0,0.4)"
-                        : "0 4px 20px rgba(0,0,0,0.08)",
-                  }}
-                >
-                  <div className="flex items-center gap-2 mb-4">
-                    <h3
-                      className="text-sm font-medium"
-                      style={{ color: textColor }}
-                    >
-                      Accent Color
-                    </h3>
-                  </div>
-                  <ColorPicker
-                    selected={accentColor}
-                    onChange={setAccentColor}
-                  />
-                </div>
+                <AnimatePresence>
+  {showColorPicker && (
+    <motion.div
+      initial={{ height: 0, opacity: 0, scale: 0.95, marginBottom: 0 }}
+      animate={{ height: "auto", opacity: 1, scale: 1, marginBottom: 16 }}
+      exit={{ height: 0, opacity: 0, scale: 0.95, marginBottom: 0 }}
+      transition={{ 
+    type: "spring", 
+    stiffness: 300, 
+    damping: 25,    
+    mass: 2        
+  }}
+      className="overflow-hidden"
+    >
+      <div
+        className="rounded-xl p-4 shadow-lg"
+        style={{
+          backgroundColor: theme === "dark" ? "hsl(262, 10%, 16%)" : "white",
+          boxShadow: theme === "dark" ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 20px rgba(0,0,0,0.08)",
+        }}
+      >
+        <div className="flex items-center gap-2 mb-4">
+          <h3 className="text-sm font-medium" style={{ color: textColor }}>
+            Accent Color
+          </h3>
+        </div>
+        <ColorPicker selected={accentColor} onChange={setAccentColor} />
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
                 <div
                   className="rounded-xl p-4 shadow-lg"
@@ -204,20 +213,6 @@ function App() {
                   />
                 </div>
               </div>
-
-              <footer
-                className="px-6 py-4 text-center text-xs border-t"
-                style={{
-                  borderColor,
-                  color:
-                    theme === "dark"
-                      ? "rgba(255,255,255,0.4)"
-                      : "rgba(0,0,0,0.3)",
-                }}
-              >
-                Double-click dates to add notes. Click twice to select a date
-                range.
-              </footer>
             </div>
           </div>
         </div>
