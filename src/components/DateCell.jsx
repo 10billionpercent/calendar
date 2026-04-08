@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { isSameDay, isDateInRange } from '../utils/dateUtils';
 
 export function DateCell({
@@ -10,6 +11,30 @@ export function DateCell({
   onClick,
   onDoubleClick,
 }) {
+  const timerRef = useRef(null);
+  const isLongPress = useRef(false);
+
+  const handlePointerDown = (e) => {
+    isLongPress.current = false;
+    timerRef.current = setTimeout(() => {
+      isLongPress.current = true;
+      onDoubleClick(date); 
+            if (window.navigator.vibrate) window.navigator.vibrate(50);
+    }, 500); 
+  };
+
+  const handlePointerUp = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+  };
+
+  const handleClick = (e) => {
+    if (!isLongPress.current) {
+      onClick(date);
+    }
+  };
+
 
   if (!date) return <div className="w-full py-2 h-12" />;
 
@@ -39,8 +64,11 @@ export function DateCell({
 
   return (
     <button
-      onClick={() => onClick(date)}
+      onClick={() => handleClick}
       onDoubleClick={() => onDoubleClick(date)}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
       className="relative w-full py-2 flex items-center justify-center text-sm font-medium transition-all duration-150"
       style={{
         ...getBackgroundStyle(),

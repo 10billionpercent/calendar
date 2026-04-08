@@ -1,11 +1,23 @@
 import { useRef } from "react";
-import { Upload, X } from "lucide-react";
+import { Upload } from "lucide-react";
 
 export function HeroImage({ src, onUpload, theme, accentColor }) {
   const fileInputRef = useRef(null);
+  const timerRef = useRef(null);
 
-  const handleDoubleClick = () => {
+  const triggerUpload = () => {
     fileInputRef.current?.click();
+  };
+
+  const handlePointerDown = () => {
+    timerRef.current = setTimeout(() => {
+      triggerUpload();
+      if (window.navigator.vibrate) window.navigator.vibrate(50);
+    }, 500);
+  };
+
+  const handlePointerUp = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
   };
 
   const handleFileChange = (e) => {
@@ -27,23 +39,30 @@ export function HeroImage({ src, onUpload, theme, accentColor }) {
 
   return (
     <div
-      className="relative w-full md:h-full overflow-hidden cursor-pointer group"
+      className="relative w-full md:h-full overflow-hidden cursor-pointer group select-none touch-none"
       style={!src ? bgStyle : undefined}
-      onDoubleClick={handleDoubleClick}
+      // Desktop standard
+      onDoubleClick={triggerUpload}
+      // Mobile Long Press
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
     >
       {src ? (
-        <>
-          <img
-            src={src}
-            alt="Calendar hero"
-            className="w-full h-full object-cover min-h-[50dvh]"
-          />
-        </>
+        <img
+          src={src}
+          alt="Calendar hero"
+          className="w-full h-full object-cover min-h-[50dvh]"
+        />
       ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center text-white/60 group-hover:text-white/80 transition-colors">
+        <div className="w-full h-full flex flex-col items-center justify-center p-8 transition-colors">
           <Upload className="w-10 h-10 mb-2" style={{ color: accentColor }} />
-          <p className="text-sm font-medium">Double-click to upload</p>
-          <p className="text-xs mt-1 opacity-75">PNG, JPG, GIF up to 5MB</p>
+          <p className="text-sm font-medium text-center" style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
+            Double-click or Long-press to upload
+          </p>
+          <p className="text-xs mt-1 opacity-50 text-center" style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
+            PNG, JPG, GIF up to 5MB
+          </p>
         </div>
       )}
 

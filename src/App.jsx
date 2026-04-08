@@ -35,7 +35,6 @@ function App() {
 
   const themeColors = useMemo(() => generateTheme(accentColor), [accentColor]);
 
-  const bgColor = theme === "dark" ? themeColors.darkBg : themeColors.lightBg;
   const textColor =
     theme === "dark" ? themeColors.lightText : themeColors.darkText;
   const borderColor =
