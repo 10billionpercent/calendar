@@ -36,7 +36,7 @@ export function useCalendar() {
     loadFromStorage(STORAGE_KEYS.ACCENT, DEFAULT_ACCENT)
   );
   const [theme, setTheme] = useState(() => 
-    loadFromStorage(STORAGE_KEYS.THEME, 'light')
+    loadFromStorage(STORAGE_KEYS.THEME, 'dark')
   );
   const [heroImage, setHeroImage] = useState(() => 
     loadFromStorage(STORAGE_KEYS.HERO, null)

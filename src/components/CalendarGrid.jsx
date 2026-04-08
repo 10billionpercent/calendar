@@ -30,7 +30,7 @@ export function CalendarGrid({
       />
       
       <div className="p-4">
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7">
           {DAY_LABELS.map((label, i) => (
             <div
               key={i}
@@ -44,7 +44,7 @@ export function CalendarGrid({
           ))}
         </div>
         
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7 gap-x-0 gap-y-2"> 
           {displayDays.map((date, index) => (
             <DateCell
               key={index}

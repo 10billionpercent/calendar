@@ -21,9 +21,8 @@ function App() {
     globalNotes,
     dateNotes,
     activeNoteEditor,
-    goToPrevMonth,
-    goToNextMonth,
     handleDateClick,
+    clearRange,
     setAccentColor,
     handleHeroUpload,
     addGlobalNote,
@@ -86,8 +85,6 @@ function App() {
                     dateNotes={dateNotes}
                     accentColor={accentColor}
                     theme={theme}
-                    onPrev={goToPrevMonth}
-                    onNext={goToNextMonth}
                     onDateClick={handleDateClick}
                     onDateDoubleClick={handleDateDoubleClick}
                   />
@@ -123,7 +120,7 @@ function App() {
 
                       {(startDate || endDate) && (
                         <button
-                          onClick={() => {}}
+                          onClick={clearRange}
                           className="p-1.5 rounded transition-opacity hover:opacity-70"
                           style={{ backgroundColor: accentColor + "20" }}
                           title="Clear selection"
