@@ -14,7 +14,7 @@ export const PRESET_COLORS = [
   { name: 'Slate', hex: '#fa27f3' },
   { name: 'Gray', hex: '#fa27c9' },
   { name: 'Stone', hex: '#d56604' },
-  { name: 'Zinc', hex: '#827c78' },
+  { name: 'Zinc', hex: '#ca8560' },
 ];
 
 export const DEFAULT_ACCENT = '#27adfa';

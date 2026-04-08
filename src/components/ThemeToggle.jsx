@@ -6,7 +6,7 @@ export function ThemeToggle({ theme, onToggle, accentColor }) {
       onClick={onToggle}
       className="p-2 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
       style={{ 
-        backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
+        backgroundColor: `${accentColor}33`
       }}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >

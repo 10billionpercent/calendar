@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Calendar, Sparkles, Eraser } from "lucide-react";
 import { useCalendar } from "./hooks/useCalendar";
 import { generateTheme } from "./utils/colorUtils";
@@ -44,6 +44,8 @@ function App() {
   const handleDateDoubleClick = (date) => {
     openDateNoteEditor(formatDateKey(date));
   };
+
+  const [isColorModalOpen, setIsColorModalOpen] = useState(false);
 
   return (
     <div
@@ -132,11 +134,23 @@ function App() {
                       )}
                     </div>
 
-                    <ThemeToggle
+                    <div className="flex items-center gap-4">
+                       <button
+      className="p-2 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
+      style={{ 
+        backgroundColor: `${accentColor}33`
+      }}
+      aria-label={`Change accent color`}
+    >
+        <Sparkles className="w-5 h-5" style={{ color: accentColor }} />
+    </button>
+                        <ThemeToggle
                       theme={theme}
                       onToggle={toggleTheme}
                       accentColor={accentColor}
                     />
+
+                    </div>
                   </div>
                 </div>
 
@@ -152,10 +166,6 @@ function App() {
                   }}
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <Sparkles
-                      className="w-4 h-4"
-                      style={{ color: accentColor }}
-                    />
                     <h3
                       className="text-sm font-medium"
                       style={{ color: textColor }}
