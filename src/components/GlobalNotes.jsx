@@ -50,7 +50,7 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
           rows={isFocused ? 3 : 1}
           className="w-full p-3 pr-12 rounded-xl resize-none text-sm transition-all duration-300"
           style={{
-            backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
+            backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.5)',
             color: theme === 'dark' ? '#fff' : '#000',
             borderColor: isFocused ? accentColor : 'transparent',
             borderWidth: '2px',

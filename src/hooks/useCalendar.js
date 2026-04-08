@@ -11,6 +11,7 @@ const STORAGE_KEYS = {
   RANGE: 'calendar_range',
 };
 
+// Helper to handle localStorage safely
 function loadFromStorage(key, defaultValue) {
   try {
     const stored = localStorage.getItem(key);
@@ -30,25 +31,42 @@ function saveToStorage(key, value) {
 
 export function useCalendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  
+  // FIX: Lazy initializers to avoid "setState in useEffect" error
+  const [startDate, setStartDate] = useState(() => {
+    const savedRange = loadFromStorage(STORAGE_KEYS.RANGE, null);
+    return savedRange?.start ? parseDateKey(savedRange.start) : null;
+  });
+
+  const [endDate, setEndDate] = useState(() => {
+    const savedRange = loadFromStorage(STORAGE_KEYS.RANGE, null);
+    return savedRange?.end ? parseDateKey(savedRange.end) : null;
+  });
+
   const [accentColor, setAccentColor] = useState(() => 
     loadFromStorage(STORAGE_KEYS.ACCENT, DEFAULT_ACCENT)
   );
+  
   const [theme, setTheme] = useState(() => 
     loadFromStorage(STORAGE_KEYS.THEME, 'dark')
   );
+  
   const [heroImage, setHeroImage] = useState(() => 
     loadFromStorage(STORAGE_KEYS.HERO, null)
   );
+  
   const [globalNotes, setGlobalNotes] = useState(() => 
     loadFromStorage(STORAGE_KEYS.NOTES, [])
   );
+  
   const [dateNotes, setDateNotes] = useState(() => 
     loadFromStorage(STORAGE_KEYS.DATE_NOTES, {})
   );
+
   const [activeNoteEditor, setActiveNoteEditor] = useState(null);
   const [isPostingNote, setIsPostingNote] = useState(false);
+
+  // --- Persistence Effects ---
 
   useEffect(() => {
     saveToStorage(STORAGE_KEYS.ACCENT, accentColor);
@@ -77,6 +95,8 @@ export function useCalendar() {
       end: endDate ? formatDateKey(endDate) : null 
     });
   }, [startDate, endDate]);
+
+  // --- Handlers ---
 
   const goToPrevMonth = useCallback(() => {
     setCurrentMonth(prev => addMonths(prev, -1));
@@ -136,8 +156,9 @@ export function useCalendar() {
     setGlobalNotes(prev => prev.filter(note => note.id !== id));
   }, []);
 
-  const openDateNoteEditor = useCallback((dateKey) => {
-    setActiveNoteEditor(dateKey);
+  const openDateNoteEditor = useCallback((dateKey, dateObj) => {
+    // Passing both key and obj so the editor knows which date to display
+    setActiveNoteEditor({ dateKey, dateObj });
   }, []);
 
   const closeDateNoteEditor = useCallback(() => {
@@ -170,14 +191,6 @@ export function useCalendar() {
 
   const toggleTheme = useCallback(() => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  }, []);
-
-  useEffect(() => {
-    const savedRange = loadFromStorage(STORAGE_KEYS.RANGE, null);
-    if (savedRange) {
-      if (savedRange.start) setStartDate(parseDateKey(savedRange.start));
-      if (savedRange.end) setEndDate(parseDateKey(savedRange.end));
-    }
   }, []);
 
   return {
