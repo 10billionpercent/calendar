@@ -210,7 +210,7 @@ function App() {
                     }}
                   >
                     <div className="flex justify-between items-center mb-4">
-                      <h3 className="font-bold uppercase tracking-widest text-xs" style={{ color: accentColor }}>Quick Guide</h3>
+                                <h3 className="font-bold" style={{ color: accentColor }}>Quick Guide</h3>
                       <button onClick={() => setShowHelp(false)}>
                         <X className="w-4 h-4" style={{ color: theme === 'dark' ? 'white' : 'black' }} />
                       </button>
