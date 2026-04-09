@@ -1,10 +1,10 @@
 export const PRESET_COLORS = [
   { name: 'Velvet Red', hex: '#da2222' },
   { name: 'Saffron', hex: '#fa9727' },
-  { name: 'Sunbeam', hex: '#f5df1c' },      
+  { name: 'Sunbeam', hex: '#f0cd1a' },      
   { name: 'Pear', hex: '#aadd1f' },
   { name: 'Neon Lime', hex: '#4efa27' },
-  { name: 'Spearmint', hex: '#20d794' },
+  { name: 'Spearmint', hex: '#21df2e' },
   { name: 'Oceanic', hex: '#1ec9c9' },
   { name: 'Sky High', hex: '#27adfa' },
   { name: 'Royal Blue', hex: '#2778fa' },

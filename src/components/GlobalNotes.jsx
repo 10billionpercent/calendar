@@ -85,7 +85,7 @@ export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {
               <button
                 onClick={() => setViewingNote(note)}
                 className="p-2 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
-                style={{ backgroundColor: `${accentColor}33` }}
+                style={{ backgroundColor: theme === 'light' ? `${accentColor}55` : `${accentColor}33` }}
               >
                 <StickyNote className="w-5 h-5" style={{ color: accentColor }} />
               </button>

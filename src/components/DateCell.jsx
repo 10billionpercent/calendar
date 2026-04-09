@@ -14,27 +14,25 @@ export function DateCell({
   const timerRef = useRef(null);
   const isLongPress = useRef(false);
 
+  // Detect Today
+  const isToday = date ? isSameDay(date, new Date()) : false;
+
   const handlePointerDown = (e) => {
     isLongPress.current = false;
     timerRef.current = setTimeout(() => {
       isLongPress.current = true;
       onDoubleClick(date); 
-            if (window.navigator.vibrate) window.navigator.vibrate(50);
+      if (window.navigator.vibrate) window.navigator.vibrate(50);
     }, 500); 
   };
 
   const handlePointerUp = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
+    if (timerRef.current) clearTimeout(timerRef.current);
   };
 
   const handleClick = (e) => {
-    if (!isLongPress.current) {
-      onClick(date);
-    }
+    if (!isLongPress.current) onClick(date);
   };
-
 
   if (!date) return <div className="w-full py-2 h-12" />;
 
@@ -44,13 +42,9 @@ export function DateCell({
 
   const getBorderRadius = () => {
     if (isStart && isEnd) return '8px';
-
-    if (isStart && !endDate) return '8px 0 0 8px'; 
-    
     if (isStart) return '8px 0 0 8px';
     if (isEnd) return '0 8px 8px 0';
     if (isInRange) return '0';
-    
     return '8px';
   };
 
@@ -62,6 +56,7 @@ export function DateCell({
 
   const getTextColor = () => {
     if (isStart || isEnd) return 'hsl(262, 10%, 15%)';
+    if (isToday) return accentColor;
     if (theme === 'dark') return 'hsl(262, 10%, 95%)';
     return 'hsl(262, 15%, 15%)';
   };
@@ -73,7 +68,7 @@ export function DateCell({
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
-      className="relative w-full py-2 flex items-center justify-center text-sm font-medium transition-all duration-150"
+      className="relative w-full py-2 flex items-center justify-center text-sm transition-all duration-150"
       style={{
         ...getBackgroundStyle(),
         borderRadius: getBorderRadius(),
@@ -87,10 +82,20 @@ export function DateCell({
         style={{ 
           borderColor: hasNote 
             ? (isStart || isEnd ? 'hsl(262, 10%, 15%)' : accentColor) 
-            : 'transparent' 
+            : 'transparent'
         }}
       >
-        <span className="relative z-10" style={{ color: getTextColor() }}>
+        <span 
+          className={`relative z-10 ${isToday ? 'font-black scale-120' : 'font-medium'}`} 
+          style={{ 
+            color: getTextColor(),
+            textShadow: isToday 
+            ? theme === 'dark' 
+            ? `0 0 10px ${accentColor}cc` 
+            : `0 0 10px ${accentColor}cc` 
+            : 'none'
+          }}
+        >
           {date.getDate()}
         </span>
       </div>
