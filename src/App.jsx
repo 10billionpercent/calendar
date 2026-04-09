@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useMemo } from "react";
 import { Sparkles, Eraser, HelpCircle, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { PRESET_COLORS } from '../constants/colors';

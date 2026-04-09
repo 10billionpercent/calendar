@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useState, useRef, useEffect } from 'react';
-import { Trash2, StickyNote, Plus, X, Clock } from 'lucide-react'; // Added Clock icon
+import { Trash2, StickyNote, Plus, X } from 'lucide-react'; 
 import { AnimatePresence, motion } from 'framer-motion';
 
 export function GlobalNotes({ notes, onAdd, onDelete, accentColor, theme }) {

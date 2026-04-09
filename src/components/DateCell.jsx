@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRef } from 'react';
 import { isSameDay, isDateInRange } from '../utils/dateUtils';
 
