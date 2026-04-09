@@ -13,7 +13,7 @@ export const PRESET_COLORS = [
   { name: 'Orchid', hex: '#c527fa' },
   { name: 'Fuchsia', hex: '#ef25c3' },
   { name: 'Dragonfruit', hex: '#ff2688' },
-  { name: 'Amber Glow', hex: '#d56604' },
+  { name: 'Roasted Praline', hex: '#9b5c4e' },
   { name: 'Mocha Dream', hex: '#ca8560' },  
 ];
 
