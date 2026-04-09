@@ -1,16 +1,179 @@
-# React + Vite
+🗓️ Interactive Wall Calendar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive, interactive calendar component built with React and Tailwind CSS, designed to combine clean UI, intuitive interactions, and strong personalization.
 
-Currently, two official plugins are available:
+This project reimagines a traditional wall calendar as a modern, interactive product — focusing not just on functionality, but on how the experience feels to use.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+✨ Core Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🎯 Personalization-first design
+- 🎨 Dynamic accent-based UI system
+- 🧠 Thoughtful interaction design (not just static UI)
+- 📱 Fully responsive across devices
+- ⚡ Clean, minimal, and intuitive user experience
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🎨 Personalization (Primary Focus)
+
+This project heavily prioritizes user personalization, making the interface feel adaptable rather than fixed.
+
+- Multiple preset accent colors
+- Accent color applied consistently across:
+  - Date highlights
+  - UI elements
+  - Buttons and interactions
+- Visual coherence maintained across themes
+
+The goal was to move beyond a generic calendar and create something that feels user-owned and customizable.
+
+---
+
+📅 Calendar & Date Range Selection
+
+- Monthly calendar grid with proper alignment
+- Click to select start and end dates
+- Automatic highlighting of the selected range
+
+Visual System:
+
+- Start date → solid accent color
+- End date → solid accent color
+- Intermediate dates → softer accent (reduced opacity)
+
+This creates clear visual hierarchy and improves readability.
+
+---
+
+🖼️ Hero Image Interaction
+
+- Dedicated hero section inspired by physical wall calendars
+- Double-click to upload a custom image
+- Acts as a visual anchor for the entire layout
+
+This adds a layer of personalization beyond just colors.
+
+---
+
+📝 Notes System
+
+Global Notes
+
+- Minimal textarea for general notes
+- “Add” button appears only on interaction (focus-based UX)
+- Keeps interface clean when not in use
+
+Per-Date Notes
+
+- Double-click any date to add a note
+- Only one note editor open at a time (prevents clutter)
+- Dates with notes are visually marked
+
+This introduces contextual interaction without overwhelming the UI.
+
+---
+
+🌙 Theme Support
+
+- Light/Dark mode toggle
+- Accent color system 
+- Maintains readability and visual consistency
+
+---
+
+📱 Responsive Design
+
+Designed with a mobile-first approach:
+
+Mobile
+
+- Vertical stacking:
+  - Hero image
+  - Calendar
+  - Notes
+
+Desktop
+
+- Horizontal layout:
+  - Hero | (Calendar | Notes)
+
+Ensures usability across all screen sizes without compromising layout clarity.
+
+---
+
+🧠 Design Philosophy
+
+This project focuses on:
+
+- Clarity over complexity
+- Minimal UI with meaningful interactions
+- Consistency through design systems (accent-based styling)
+- User control through personalization
+- Reducing friction in interaction flows
+
+Instead of overloading features, emphasis was placed on making each feature feel intentional and usable.
+
+---
+
+🛠️ Tech Stack
+
+- React – Component-based architecture
+- Tailwind CSS – Rapid styling and responsive design
+- LocalStorage – Lightweight persistence for user data
+
+---
+
+⚙️ How to Run Locally
+
+git clone https://github.com/10billionpercent/calendar
+cd calendar
+npm install
+npm run dev
+
+---
+
+🚀 Live Demo
+
+Deployed on GitHub Pages:
+👉 https://10billionpercent.github.io/calendar/
+
+---
+
+🧩 Scope & Decisions
+
+- No backend (frontend-focused implementation)
+- Calendar logic handled entirely on client-side
+- Focused on UX and interaction rather than feature overload
+- Avoided unnecessary complexity to maintain clarity and stability
+
+---
+
+📸 Screenshots
+
+Desktop Layout
+
+<img width="1919" height="1018" alt="image" src="https://github.com/user-attachments/assets/94de2b14-5d26-45a1-97e1-e09afe5d1739" />
+
+Accent Color Picker
+
+<img width="1919" height="1024" alt="image" src="https://github.com/user-attachments/assets/5cfbcba4-e96e-457f-87fb-5be6c3889adb" />
+
+Per Date Note
+
+<img width="1919" height="1016" alt="image" src="https://github.com/user-attachments/assets/2f22747a-3ce2-4975-b6c8-abc6cba5c54e" />
+
+Global Note
+
+<img width="1919" height="1020" alt="image" src="https://github.com/user-attachments/assets/b0f5e643-b495-4048-9ea3-27c1c6d318b1" />
+
+Mobile Layout
+
+<img width="1351" height="993" alt="image" src="https://github.com/user-attachments/assets/6e83c438-5f4d-4cc2-be52-c2d7b69a75b3" />
+
+---
+
+📌 Final Note
+
+This project was built with the intention of going beyond a basic component — aiming instead to create a small, self-contained product experience that balances usability, aesthetics, and personalization.
