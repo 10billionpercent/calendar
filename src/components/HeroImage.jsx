@@ -39,20 +39,18 @@ export function HeroImage({ src, onUpload, theme }) {
 
   return (
     <div
-      className="relative w-full md:h-full overflow-hidden cursor-pointer group select-none touch-none"
+      className="relative w-full h-60 md:h-full overflow-hidden cursor-pointer group select-none touch-none"
       style={!src ? bgStyle : undefined}
-      // Desktop standard
       onDoubleClick={triggerUpload}
-      // Mobile Long Press
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
     >
-        <img
-          src={src || defaultImage}
-          alt="Calendar hero"
-          className="w-full h-full object-cover min-h-[50dvh]"
-        />
+      <img
+        src={src || defaultImage}
+        alt="Calendar hero"
+        className="w-full h-full object-cover"
+      />
 
       <input
         ref={fileInputRef}
@@ -61,6 +59,12 @@ export function HeroImage({ src, onUpload, theme }) {
         onChange={handleFileChange}
         className="hidden"
       />
+      
+      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+        <span className="text-white text-xs font-bold bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">
+          Change Image
+        </span>
+      </div>
     </div>
   );
 }

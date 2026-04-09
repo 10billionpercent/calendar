@@ -3,7 +3,6 @@ import { Check } from 'lucide-react';
 import { PRESET_COLORS } from '../constants/colors';
 
 export function ColorPicker({ selected, theme, onChange }) {
-  // ringColor is used for both the gap and the check icon now
   const ringColor = theme === 'dark' ? 'hsl(262, 10%, 16%)' : '#ffffff';
   const textColor = theme === 'dark' ? 'hsl(262, 10%, 95%)' : 'hsl(262, 15%, 15%)';
 
@@ -23,30 +22,32 @@ export function ColorPicker({ selected, theme, onChange }) {
             <button
               key={color.hex}
               onClick={() => onChange(color.hex)}
-              className="w-8 h-8 rounded-full transition-all duration-500 relative flex items-center justify-center group"
+              className="w-6 h-6 sm:w-8 sm:h-8 rounded-full relative flex items-center justify-center group outline-none"
               style={{ 
                 backgroundColor: color.hex,
-                // The gap ring transitions perfectly with the theme
                 boxShadow: isSelected 
                   ? `0 0 0 2px ${ringColor}, 0 0 0 4px ${color.hex}` 
-                  : 'none',
-                transition: 'box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s ease'
+                  : '0 0 0 0px transparent',
+                transition: 'box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s ease'
               }}
               title={color.name}
             >
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {isSelected && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
+                    initial={{ scale: 0, rotate: -45, opacity: 0 }}
+                    animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                    exit={{ scale: 0, rotate: 45, opacity: 0 }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 25
+                    }}
+                    className="flex items-center justify-center pointer-events-none"
                   >
                     <Check 
-                      className="w-4 h-4" 
-                      style={{ 
-                        color: ringColor, // Matches the ring color
-                        transition: 'color 0.5s cubic-bezier(0.4, 0, 0.2, 1)' // THE FIX: Syncs with theme fade
-                      }} 
+                      className="w-4 h-4 stroke-[3px]" 
+                      style={{ color: ringColor }} 
                     />
                   </motion.div>
                 )}
